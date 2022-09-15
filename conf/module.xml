@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<module>
+	<grants>
+	</grants>
+	<actions>
+		<!-- 관리자 액션 -->
+		<action name="dispAdminextendAdminConfig" class="Controllers\Admin" menu_name="adminextend" admin_index="true" />
+		<action name="procAdminextendAdminInsertConfig" class="Controllers\Admin" />
+		<!-- 메인 화면 예제 -->
+		<action name="dispAdminextendIndex" class="Controllers\Index" index="true" />
+		<!-- 글읽기 화면 예제 -->
+		<action name="dispAdminextendRead" class="Controllers\Read" route="read/$item_srl" />
+		<!-- 글쓰기 화면 예제 -->
+		<action name="dispAdminextendWrite" class="Controllers\Write">
+			<route route="write" />
+			<route route="write/$item_srl" />
+		</action>
+		<!-- 글쓰기 POST 액션 예제 -->
+		<action name="procAdminextendWrite" class="Controllers\Write" permission="member" />
+	</actions>
+	<menus>
+		<menu name="adminextend" type="all">
+			<title xml:lang="ko">관리자 확장팩</title>
+		</menu>
+	</menus>
+</module>
