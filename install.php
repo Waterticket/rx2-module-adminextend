@@ -16,9 +16,9 @@ class Install extends Base
 	 * checkUpdate(), moduleUpdate() 등에서 체크 및 생성 루틴을 중복으로 작성하지 않아도 된다.
 	 */
 	protected static $_insert_triggers = array(
-		// array('document.insertDocument', 'after', 'Controllers\Triggers', 'afterInsertDocument'),
-		// array('document.updateDocument', 'after', 'Controllers\Triggers', 'afterUpdateDocument'),
-		// array('document.deleteDocument', 'after', 'Controllers\Triggers', 'afterDeleteDocument'),
+		array('member.doLogin', 'before', 'Controllers\Triggers', 'beforeDoLogin'),
+		array('moduleObject.proc', 'before', 'Controllers\Triggers', 'beforeModuleProc'),
+		array('moduleObject.proc', 'after', 'Controllers\Triggers', 'afterModuleProc'),
 	);
 	
 	/**

@@ -3,8 +3,10 @@
 	<grants>
 	</grants>
 	<actions>
-		<action name="dispAdminextendAdminConfig" class="Controllers\Admin" menu_name="adminextend" admin_index="true" />
-		<action name="procAdminextendAdminInsertConfig" class="Controllers\Admin" />
+		<action name="dispAdminextendAdminConfig" class="Controllers\Common" menu_name="adminextend" admin_index="true" />
+		<action name="procAdminextendAdminInsertConfig" class="Controllers\Common" />
+		
+		<action name="dispAdminextendAdminSubAdminConfig" class="Controllers\SubAdmin" />
 	</actions>
 	<menus>
 		<menu name="adminextend" type="all">

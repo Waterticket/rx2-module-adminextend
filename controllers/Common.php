@@ -22,7 +22,7 @@ use Rhymix\Framework\Filters\IpFilter;
  * 
  * Generated with https://www.poesis.org/tools/modulegen/
  */
-class Admin extends Base
+class Common extends Base
 {
 	/**
 	 * 초기화
