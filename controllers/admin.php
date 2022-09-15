@@ -12,6 +12,9 @@ use Context;
 use ModuleController;
 use ModuleModel;
 
+use Rhymix\Modules\Adminextend\Models\Login;
+use Rhymix\Framework\Filters\IpFilter;
+
 /**
  * 관리자 확장팩
  * 
@@ -35,13 +38,13 @@ class Admin extends Base
 	 */
 	public function dispAdminextendAdminConfig()
 	{
-		// 현재 설정 상태 불러오기
 		$config = $this->getConfig();
+		Context::set('config', $config);
+
+		$oMemberModel = getModel('member');
+		$group_list = $oMemberModel->getGroups();
+		Context::set('group_list', $group_list);
 		
-		// Context에 세팅
-		Context::set('adminextend_config', $config);
-		
-		// 스킨 파일 지정
 		$this->setTemplateFile('config');
 	}
 	
@@ -56,15 +59,28 @@ class Admin extends Base
 		// 제출받은 데이터 불러오기
 		$vars = Context::getRequestVars();
 		
-		// 제출받은 데이터를 각각 적절히 필터링하여 설정 변경
-		if (in_array($vars->example_config, ['Y', 'N']))
+		$oMemberModel = getModel('member');
+		$group_list = $oMemberModel->getGroups();
+		$login_ip_range_group = array();
+		foreach($group_list as $group_srl => $group_info)
 		{
-			$config->example_config = $vars->example_config;
+			$allowed_ip = array_map('trim', preg_split('/[\r\n]/', $vars->login_ip_range_by_group[$group_srl]));
+			$allowed_ip = array_unique(array_filter($allowed_ip, function($item) {
+				return $item !== '';
+			}));
+			if (!IpFilter::validateRanges($allowed_ip)) {
+				throw new Exception('msg_invalid_ip');
+			}
+
+			$login_ip_range_group[$group_srl] = $allowed_ip;
 		}
-		else
+
+		if (!Login::checkMemberAllowedIpRangeByGroup(null, $login_ip_range_group))
 		{
-			return new BaseObject(-1, '설정값이 이상함');
+			throw new Exception('msg_current_ip_will_be_denied');
 		}
+
+		$config->login_ip_range_by_group = $login_ip_range_group;
 		
 		// 변경된 설정을 저장
 		$output = $this->setConfig($config);

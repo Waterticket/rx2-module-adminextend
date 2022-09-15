@@ -29,6 +29,9 @@ class Base extends \ModuleObject
 		if (self::$_config_cache === null)
 		{
 			self::$_config_cache = \ModuleModel::getModuleConfig($this->module) ?: new \stdClass;
+
+			// 기본값 설정
+			if (!isset(self::$_config_cache->login_ip_range_by_group)) self::$_config_cache->login_ip_range_by_group = [];
 		}
 		return self::$_config_cache;
 	}

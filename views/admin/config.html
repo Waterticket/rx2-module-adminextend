@@ -20,13 +20,19 @@
 	</div>
 	
 	<section class="section">
+		<h1>로그인</h1>
 		<div class="x_control-group">
-			<label class="x_control-label" for="example_config">{$lang->cmd_adminextend_example_config}</label>
+			<label class="x_control-label">{$lang->login_ip_range}</label>
 			<div class="x_controls">
-				<select name="example_config" id="example_config">
-					<option value="Y" selected="selected"|cond="$adminextend_config->example_config !== 'N'">{$lang->cmd_yes}</option>
-					<option value="N" selected="selected"|cond="$adminextend_config->example_config === 'N'">{$lang->cmd_no}</option>
-				</select>
+				<table class="x_table">
+					<!--@foreach($group_list as $group_srl => $group_info)-->
+					<tr>
+						<td><span>{$group_info->title}</span></td>
+						<td><textarea name="login_ip_range_by_group[{$group_srl}]" placeholder="0.0.0.0/0">{implode(PHP_EOL, $config->login_ip_range_by_group[$group_srl] ?? [])}</textarea></td>
+					</tr>
+					<!--@endforeach-->
+				</table>
+				<p class="x_help-block">{$lang->about_login_ip_range}</p>
 			</div>
 		</div>
 	</section>
