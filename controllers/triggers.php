@@ -20,7 +20,7 @@ class Triggers extends Base
 	public function beforeDoLogin($obj)
 	{
 		$user_id = $obj->user_id;
-		$member_info = MemberModel::getMemberInfoByUserID($user_id);
+		$member_info = \MemberModel::getMemberInfoByUserID($user_id);
 
 		if(!Login::checkMemberAllowedIpRangeByGroup($member_info->member_srl))
 		{
