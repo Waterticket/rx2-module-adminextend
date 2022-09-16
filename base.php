@@ -24,11 +24,11 @@ class Base extends \ModuleObject
 	 * 
 	 * @return object
 	 */
-	public function getConfig()
+	public static function getConfig()
 	{
 		if (self::$_config_cache === null)
 		{
-			self::$_config_cache = \ModuleModel::getModuleConfig($this->module) ?: new \stdClass;
+			self::$_config_cache = \ModuleModel::getModuleConfig('adminextend') ?: new \stdClass;
 
 			// 기본값 설정
 			if (!isset(self::$_config_cache->login_ip_range_by_group)) self::$_config_cache->login_ip_range_by_group = [];
@@ -45,10 +45,10 @@ class Base extends \ModuleObject
 	 * @param object $config
 	 * @return object
 	 */
-	public function setConfig($config)
+	public static function setConfig($config)
 	{
 		$oModuleController = \ModuleController::getInstance();
-		$result = $oModuleController->insertModuleConfig($this->module, $config);
+		$result = $oModuleController->insertModuleConfig('adminextend', $config);
 		if ($result->toBool())
 		{
 			self::$_config_cache = $config;
