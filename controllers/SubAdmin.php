@@ -56,6 +56,21 @@ class SubAdmin extends Base
 		$vars = Context::getRequestVars();
 
 		$config->permission = $vars->permission;
+
+		$custom_allowed_act = [];
+		$oMemberModel = MemberModel::getInstance();
+		$group_list = $oMemberModel->getGroups();
+		foreach($group_list as $group_srl => $group_info)
+		{
+			$allowed_act = array_map('trim', preg_split('/[\r\n]/', $vars->custom_allowed_act[$group_srl]));
+			$allowed_act = array_unique(array_filter($allowed_act, function($item) {
+				return $item !== '';
+			}));
+
+			$custom_allowed_act[$group_srl] = $allowed_act;
+		}
+
+		$config->custom_allowed_act = $custom_allowed_act;
 		
 		// 변경된 설정을 저장
 		$output = $this->setConfig($config);

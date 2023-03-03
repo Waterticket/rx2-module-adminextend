@@ -50,7 +50,16 @@ class Permission {
             }
         }
 
-        return $allowed_acts;
+        $config = \Rhymix\Modules\Adminextend\Base::getConfig();
+        foreach ($group_srls as $group_srl)
+        {
+            if (isset($config->custom_allowed_act[$group_srl]))
+            {
+                $allowed_acts = array_merge($allowed_acts, $config->custom_allowed_act[$group_srl]);
+            }
+        }
+
+        return array_unique($allowed_acts);
     }
 
     public static function checkPermissionByAct($permissions, $act) {

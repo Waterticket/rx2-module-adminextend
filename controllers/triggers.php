@@ -43,7 +43,14 @@ class Triggers extends Base
 			self::$allowed_acts = \Rhymix\Modules\Adminextend\Models\Permission::getAllowedActs(array_keys($this->user->group_list));
 			
 			if ($this->user->member_srl === $config->super_admin_member_srl) return;
-			if (!in_array($obj->act, self::$allowed_acts)) return new BaseObject(-1, 'msg_not_permitted_act');
+			$gnbUrlList = Context::get('gnbUrlList');
+			$gnbUrlList = $this->updateUrlList($gnbUrlList);
+			Context::set('gnbUrlList', $gnbUrlList);
+
+			if (!in_array($obj->act, self::$allowed_acts))
+			{
+				return new BaseObject(-1, 'msg_not_permitted_act');
+			}
 
 			if (!Login::checkMemberAllowedIpRangeByGroup($this->user->member_srl))
 			{
@@ -54,19 +61,7 @@ class Triggers extends Base
 
 	public function afterModuleProc($obj)
 	{
-		$config = $this->getConfig();
-		if ($config->module_enabled !== 'Y') return;
-
-		if ($obj->mid === 'admin' || $obj->module === 'admin' || str_contains(strtolower($obj->act), 'admin'))
-		{
-			if ($this->user->member_srl === $config->super_admin_member_srl) return;
 		
-			$gnbUrlList = Context::get('gnbUrlList');
-			debugPrint($gnbUrlList);
-			$gnbUrlList = $this->updateUrlList($gnbUrlList);
-			Context::set('gnbUrlList', $gnbUrlList);
-
-		}
 	}
 
 	public function updateUrlList($urlList)
