@@ -17,6 +17,19 @@ class Permission {
             "procMemberAdminInsert",
             "procMemberAdminSelectedMemberManage",
         ],
+        "point_config_view" => [
+            "dispPointAdminConfig",
+            "dispPointAdminModuleConfig",
+            "dispPointAdminPointList",
+        ],
+        "point_config_manage" => [
+            "procPointAdminInsertConfig",
+            "procPointAdminInsertModuleConfig",
+            "procPointAdminUpdatePoint",
+            "procPointAdminReCal",
+            "procPointAdminApplyPoint",
+            "procPointAdminReset",
+        ]
     ];
 
     public static function getPermissionList() {
