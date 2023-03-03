@@ -55,6 +55,11 @@ class SubAdmin extends Base
 		// 제출받은 데이터 불러오기
 		$vars = Context::getRequestVars();
 
+		if ($config->module_enabled == 'Y' && $this->user->member_srl != $config->super_admin_member_srl)
+		{
+			throw new Exception('msg_not_permitted');
+		}
+
 		$config->permission = $vars->permission;
 
 		$custom_allowed_act = [];
