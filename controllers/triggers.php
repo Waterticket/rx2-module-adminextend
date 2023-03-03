@@ -19,6 +19,9 @@ class Triggers extends Base
 {
 	public function beforeDoLogin($obj)
 	{
+		$config = $this->getConfig();
+		if ($config->module_enabled !== 'Y') return;
+		
 		$user_id = $obj->user_id;
 		$member_info = \MemberModel::getMemberInfoByUserID($user_id);
 
@@ -31,6 +34,8 @@ class Triggers extends Base
 	public function beforeModuleProc($obj)
 	{
 		$config = $this->getConfig();
+		if ($config->module_enabled !== 'Y') return;
+		
 		if ($obj->mid === 'admin' || $obj->module === 'admin' || str_contains('admin', strtolower($obj->act)))
 		{
 			if ($this->user->member_srl === $config->super_admin_member_srl) return;
