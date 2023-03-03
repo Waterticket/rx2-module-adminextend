@@ -31,6 +31,8 @@ class Base extends \ModuleObject
 			self::$_config_cache = \ModuleModel::getModuleConfig('adminextend') ?: new \stdClass;
 
 			// 기본값 설정
+			if (!isset(self::$_config_cache->module_enabled)) self::$_config_cache->module_enabled = 'N';
+			if (!isset(self::$_config_cache->super_admin_member_srl)) self::$_config_cache->super_admin_member_srl = 4;
 			if (!isset(self::$_config_cache->login_ip_range_by_group)) self::$_config_cache->login_ip_range_by_group = [];
 		}
 		return self::$_config_cache;

@@ -30,12 +30,12 @@ class Triggers extends Base
 
 	public function beforeModuleProc($obj)
 	{
+		$config = $this->getConfig();
 		if ($obj->mid === 'admin' || $obj->module === 'admin' || str_contains('admin', strtolower($obj->act)))
 		{
-			$logged_info = Context::get('logged_info');
-			if ($logged_info->member_srl === 4) return;
+			if ($this->user->member_srl === $config->super_admin_member_srl) return;
 
-			if (!Login::checkMemberAllowedIpRangeByGroup($logged_info->member_srl))
+			if (!Login::checkMemberAllowedIpRangeByGroup($this->user->member_srl))
 			{
 				return new BaseObject(-1, 'msg_not_allowed_ip');
 			}
@@ -45,7 +45,8 @@ class Triggers extends Base
 	public function afterModuleProc($obj)
 	{
 		$gnbUrlList = Context::get('gnbUrlList');
-		debugPrint($gnbUrlList);
+		debugPrint(array_keys($this->user->group_list));
+		// debugPrint($gnbUrlList);
 		// Context::set('gnbUrlList',[]);
 	}
 }
