@@ -9,6 +9,25 @@
 	<div class="message {$XE_VALIDATOR_MESSAGE_TYPE}" cond="$XE_VALIDATOR_MESSAGE && $XE_VALIDATOR_ID == 'modules/adminextend/tpl/config/1'">
 		<p>{$XE_VALIDATOR_MESSAGE}</p>
 	</div>
+
+	<section class="section">
+		<h1>기본 설정</h1>
+		<div class="x_control-group">
+			<label class="x_control-label">{$lang->module_enabled}</label>
+			<div class="x_controls">
+				<label><input type="checkbox" name="module_enabled" value="Y" checked="checked"|cond="$config->module_enabled === 'Y'">&nbsp;{$lang->module_enabled}</label>
+				<p class="x_help-block">{$lang->about_module_enabled}</p>
+			</div>
+		</div>
+
+		<div class="x_control-group">
+			<label class="x_control-label">{$lang->super_admin_member_srl}</label>
+			<div class="x_controls">
+				<input type="number" name="super_admin_member_srl" value="{$config->super_admin_member_srl}">&nbsp;(현재 계정 srl: {$this->user->member_srl})
+				<p class="x_help-block">{$lang->about_super_admin_member_srl}</p>
+			</div>
+		</div>
+	</section>
 	
 	<section class="section">
 		<h1>로그인</h1>

@@ -58,6 +58,9 @@ class Common extends Base
 		
 		// 제출받은 데이터 불러오기
 		$vars = Context::getRequestVars();
+
+		$config->module_enabled = ($vars->module_enabled == 'Y') ? 'Y' : 'N';
+		$config->super_admin_member_srl = $vars->super_admin_member_srl ?? 4;
 		
 		$oMemberModel = getModel('member');
 		$group_list = $oMemberModel->getGroups();
