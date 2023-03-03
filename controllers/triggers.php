@@ -47,14 +47,46 @@ class Triggers extends Base
 		}
 	}
 
+	public static $allowed_acts = [];
+
 	public function afterModuleProc($obj)
 	{
-		return;
 		$gnbUrlList = Context::get('gnbUrlList');
-		debugPrint(array_keys($this->user->group_list));
+		self::$allowed_acts = \Rhymix\Modules\Adminextend\Models\Permission::getAllowedActs(array_keys($this->user->group_list));
 		debugPrint($gnbUrlList);
-		return;
+		$gnbUrlList = $this->updateUrlList($gnbUrlList);
 		
-		// Context::set('gnbUrlList',[]);
+		// Context::set('gnbUrlList', $gnbUrlList);
+	}
+
+	public function updateUrlList($urlList)
+	{
+		foreach ($urlList as $key => &$obj)
+		{
+			if ($obj['text'] == '대시보드' && in_array('__dashboard__', self::$allowed_acts))
+			{
+				continue;
+			}
+			
+			if (!empty($obj['list']))
+			{
+				$obj['list'] = $this->updateUrlList($obj['list']);
+				if (!empty($obj['list'])) continue;
+			}
+
+			$str = parse_url(htmlspecialchars_decode($obj['href']), PHP_URL_QUERY);
+			parse_str($str, $args);
+
+			if (in_array($args['act'], self::$allowed_acts))
+			{
+				continue;
+			}
+			else
+			{
+				unset($urlList[$key]);
+			}
+		}
+
+		return $urlList;
 	}
 }

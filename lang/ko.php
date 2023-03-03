@@ -15,6 +15,7 @@ $lang->about_super_admin_member_srl = '최고 관리자의 srl을 입력해주�
 $lang->permission = '권한';
 $lang->about_permission = '권한을 설정하면 해당 권한을 가진 관리자만 해당 메뉴를 볼 수 있습니다.';
 
+$lang->__dashboard__ = '대시보드';
 $lang->member_list = '유저 목록';
 $lang->member_view = '유저 조회';
 $lang->member_manage = '유저 추가/수정/관리';

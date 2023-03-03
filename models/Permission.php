@@ -4,6 +4,9 @@ namespace Rhymix\Modules\Adminextend\Models;
 
 class Permission {
     private const PERMISSION_LIST = [
+        "__dashboard__" => [
+            "__dashboard__",
+        ],
         "member_list" => [
             "dispMemberAdminList",
         ],
@@ -18,6 +21,36 @@ class Permission {
 
     public static function getPermissionList() {
         return array_keys(self::PERMISSION_LIST);
+    }
+
+    public static function getAllowedPermission($group_srls)
+    {
+        $config = \Rhymix\Modules\Adminextend\Base::getConfig();
+        $allowed_permissions = [];
+        foreach ($config->permission as $group_srl => $permission)
+        {
+            if (in_array($group_srl, $group_srls))
+            {
+                $allowed_permissions = array_merge($allowed_permissions, array_keys($permission));
+            }
+        }
+
+        return array_unique($allowed_permissions);
+    }
+
+    public static function getAllowedActs($group_srls)
+    {
+        $allowed_acts = [];
+        $allowed_permissions = self::getAllowedPermission($group_srls);
+        foreach ($allowed_permissions as $permission)
+        {
+            if (isset(self::PERMISSION_LIST[$permission]))
+            {
+                $allowed_acts = array_merge($allowed_acts, self::PERMISSION_LIST[$permission]);
+            }
+        }
+
+        return $allowed_acts;
     }
 
     public static function checkPermissionByAct($permissions, $act) {
