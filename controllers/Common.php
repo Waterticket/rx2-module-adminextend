@@ -11,6 +11,7 @@ use BaseObject;
 use Context;
 use ModuleController;
 use ModuleModel;
+use MemberModel;
 
 use Rhymix\Modules\Adminextend\Models\Login;
 use Rhymix\Framework\Filters\IpFilter;
@@ -62,7 +63,7 @@ class Common extends Base
 		$config->module_enabled = ($vars->module_enabled == 'Y') ? 'Y' : 'N';
 		$config->super_admin_member_srl = $vars->super_admin_member_srl ?? 4;
 		
-		$oMemberModel = getModel('member');
+		$oMemberModel = MemberModel::getInstance();
 		$group_list = $oMemberModel->getGroups();
 		$login_ip_range_group = array();
 		foreach($group_list as $group_srl => $group_info)

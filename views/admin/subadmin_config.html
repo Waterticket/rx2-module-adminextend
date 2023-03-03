@@ -1,1 +1,40 @@
 <include target="_header.html" />
+
+<form class="x_form-horizontal" action="./" method="post" id="adminextend">
+	<input type="hidden" name="module" value="adminextend" />
+	<input type="hidden" name="act" value="procAdminextendAdminInsertSubAdminConfig" />
+	<input type="hidden" name="success_return_url" value="{getRequestUriByServerEnviroment()}" />
+	<input type="hidden" name="xe_validator_id" value="modules/adminextend/tpl/config/1" />
+	
+	<div class="message {$XE_VALIDATOR_MESSAGE_TYPE}" cond="$XE_VALIDATOR_MESSAGE && $XE_VALIDATOR_ID == 'modules/adminextend/tpl/config/1'">
+		<p>{$XE_VALIDATOR_MESSAGE}</p>
+	</div>
+
+	<section class="section">
+		<h1>퍼미션 설정</h1>
+        
+		<div class="x_control-group">
+			<label class="x_control-label">{$lang->permission}</label>
+			<div class="x_controls">
+				<table class="x_table">
+					<!--@foreach($group_list as $group_srl => $group_info)-->
+					<tr>
+						<td style="max-width: 0;"><span>{$group_info->title}</span></td>
+						<td>
+                            <!--@foreach($permission_list as $permission)-->
+                                <label><input type="checkbox" name="permission[{$group_srl}][{$permission}]" value="Y" checked="checked"|cond="$config->permission[$group_srl][$permission] == 'Y'" />&nbsp;{$lang->$permission}</label>
+                            <!--@endforeach-->
+                        </td>
+					</tr>
+					<!--@endforeach-->
+				</table>
+				<p class="x_help-block">{$lang->about_permission}</p>
+			</div>
+		</div>
+	</section>
+	
+	<div class="btnArea x_clearfix">
+		<button type="submit" class="x_btn x_btn-primary x_pull-right">{$lang->cmd_registration}</button>
+	</div>
+	
+</form>

@@ -34,6 +34,7 @@ class Base extends \ModuleObject
 			if (!isset(self::$_config_cache->module_enabled)) self::$_config_cache->module_enabled = 'N';
 			if (!isset(self::$_config_cache->super_admin_member_srl)) self::$_config_cache->super_admin_member_srl = 4;
 			if (!isset(self::$_config_cache->login_ip_range_by_group)) self::$_config_cache->login_ip_range_by_group = [];
+			if (!isset(self::$_config_cache->permission)) self::$_config_cache->permission = [];
 		}
 		return self::$_config_cache;
 	}

@@ -35,7 +35,7 @@ class Triggers extends Base
 	{
 		$config = $this->getConfig();
 		if ($config->module_enabled !== 'Y') return;
-		
+
 		if ($obj->mid === 'admin' || $obj->module === 'admin' || str_contains('admin', strtolower($obj->act)))
 		{
 			if ($this->user->member_srl === $config->super_admin_member_srl) return;
@@ -49,9 +49,12 @@ class Triggers extends Base
 
 	public function afterModuleProc($obj)
 	{
+		return;
 		$gnbUrlList = Context::get('gnbUrlList');
 		debugPrint(array_keys($this->user->group_list));
-		// debugPrint($gnbUrlList);
+		debugPrint($gnbUrlList);
+		return;
+		
 		// Context::set('gnbUrlList',[]);
 	}
 }
