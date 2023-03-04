@@ -6,8 +6,8 @@
 		<action name="dispAdminextendAdminConfig" class="Controllers\Common" menu_name="adminextend" admin_index="true" />
 		<action name="procAdminextendAdminInsertConfig" class="Controllers\Common" />
 		
-		<action name="dispAdminextendAdminSubAdminConfig" class="Controllers\SubAdmin" />
-		<action name="procAdminextendAdminInsertSubAdminConfig" class="Controllers\SubAdmin" />
+		<action name="dispAdminextendAdminSubadminConfig" class="Controllers\Subadmin" />
+		<action name="procAdminextendAdminInsertSubadminConfig" class="Controllers\Subadmin" />
 	</actions>
 	<menus>
 		<menu name="adminextend" type="all">

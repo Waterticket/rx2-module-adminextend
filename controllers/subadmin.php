@@ -21,7 +21,7 @@ use Rhymix\Modules\Adminextend\Models\Permission;
  * 
  * Generated with https://www.poesis.org/tools/modulegen/
  */
-class SubAdmin extends Base
+class Subadmin extends Base
 {
 	/**
 	 * 초기화
@@ -32,7 +32,7 @@ class SubAdmin extends Base
 		$this->setTemplatePath($this->module_path . 'views/admin/');
 	}
 	
-	public function dispAdminextendAdminSubAdminConfig()
+	public function dispAdminextendAdminSubadminConfig()
 	{
 		$oMemberModel = MemberModel::getInstance();
 		$group_list = $oMemberModel->getGroups();
@@ -47,7 +47,7 @@ class SubAdmin extends Base
 		$this->setTemplateFile('subadmin_config');
 	}
 
-	public function procAdminextendAdminInsertSubAdminConfig()
+	public function procAdminextendAdminInsertSubadminConfig()
 	{
 		// 현재 설정 상태 불러오기
 		$config = $this->getConfig();
