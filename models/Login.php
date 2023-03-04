@@ -51,7 +51,7 @@ class Login
 		foreach ($member_group_srl as $group_srl)
 		{
 			$allow_list = $allow_range_by_group[$group_srl] ?? [];
-			if (count($allow_list) === 0)
+			if (empty($allow_list))
 			{
 				continue;
 			}

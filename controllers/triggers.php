@@ -4,6 +4,8 @@ namespace Rhymix\Modules\Adminextend\Controllers;
 
 use BaseObject;
 use Context;
+use MemberModel;
+use stdClass;
 
 use Rhymix\Modules\Adminextend\Base;
 use Rhymix\Modules\Adminextend\Models\Login;
@@ -23,7 +25,21 @@ class Triggers extends Base
 		if ($config->module_enabled !== 'Y') return;
 		
 		$user_id = $obj->user_id;
-		$member_info = \MemberModel::getMemberInfoByUserID($user_id);
+		$member_config = MemberModel::getMemberConfig();
+		$member_info = new stdClass;
+		if ((!$member_config->identifiers || in_array('email_address', $member_config->identifiers)) && strpos($user_id, '@') !== false)
+		{
+			$member_info = MemberModel::getMemberInfoByEmailAddress($user_id);
+		}
+		else if (!$config->identifiers || in_array('user_id', $config->identifiers))
+		{
+			$member_info = MemberModel::getMemberInfoByUserID($user_id);
+		}
+
+		if (!$member_info->member_srl)
+		{
+			return new BaseObject(-1, 'invalid_user_id');
+		}
 
 		if(!Login::checkMemberAllowedIpRangeByGroup($member_info->member_srl))
 		{
