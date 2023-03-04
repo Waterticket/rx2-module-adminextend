@@ -31,9 +31,46 @@ class Triggers extends Base
 		{
 			$member_info = MemberModel::getMemberInfoByEmailAddress($user_id);
 		}
-		else if (!$config->identifiers || in_array('user_id', $config->identifiers))
+		else if ($member_config->identifiers && in_array('phone_number', $member_config->identifiers) && strpos($user_id, '@') === false)
+		{
+			if (preg_match('/^\+([0-9-]+)\.([0-9.-]+)$/', $user_id, $matches))
+			{
+				$user_id = $matches[2];
+				$phone_country = $matches[1];
+				if($member_config->phone_number_hide_country === 'Y')
+				{
+					$phone_country = $member_config->phone_number_default_country;
+				}
+			}
+			else if ($member_config->phone_number_default_country)
+			{
+				$phone_country = $member_config->phone_number_default_country;
+			}
+			else
+			{
+				return new BaseObject(-1, 'invalid_user_id');
+			}
+
+			if($phone_country && !preg_match('/^[A-Z]{3}$/', $phone_country))
+			{
+				$phone_country = \Rhymix\Framework\i18n::getCountryCodeByCallingCode($phone_country);
+			}
+
+			$numbers_only = preg_replace('/[^0-9]/', '', $user_id);
+			if (!$numbers_only)
+			{
+				return new BaseObject(-1, 'null_user_id');
+			}
+
+			$member_info = MemberModel::getMemberInfoByPhoneNumber($numbers_only, $phone_country);
+		}
+		else if (!$member_config->identifiers || in_array('user_id', $member_config->identifiers))
 		{
 			$member_info = MemberModel::getMemberInfoByUserID($user_id);
+		}
+		else
+		{
+			return new BaseObject(-1, 'invalid_user_id');
 		}
 
 		if (!$member_info->member_srl)
