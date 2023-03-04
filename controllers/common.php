@@ -75,7 +75,7 @@ class Common extends Base
 		{
 			$allowed_ip = array_map('trim', preg_split('/[\r\n]/', $vars->login_ip_range_by_group[$group_srl]));
 			$allowed_ip = array_unique(array_filter($allowed_ip, function($item) {
-				return $item !== '';
+				return !empty($item);
 			}));
 			if (!IpFilter::validateRanges($allowed_ip)) {
 				throw new Exception('msg_invalid_ip');
