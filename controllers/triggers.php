@@ -93,7 +93,12 @@ class Triggers extends Base
 	{
 		$config = $this->getConfig();
 		if ($config->module_enabled !== 'Y') return;
+
 		self::$log_enabled = $config->admin_log_enabled === 'Y';
+		if (str_contains(strtolower($obj->act), 'adminextend'))
+		{
+			self::$log_enabled = true;
+		}
 
 		if ($obj->mid === 'admin' || $obj->module === 'admin' || str_contains(strtolower($obj->act), 'admin'))
 		{
