@@ -64,6 +64,24 @@ class Permission {
         "trash_delete" => [
             "procTrashAdminEmptyTrash",
         ],
+        "spamfilter_view" => [
+            "dispSpamfilterAdminDeniedIPList",
+            "dispSpamfilterAdminDeniedWordList",
+            "dispSpamfilterAdminConfigBlock",
+        ],
+        "spamfilter_manage" => [
+            "procSpamfilterAdminInsertDeniedIP",
+            "procSpamfilterAdminDeleteDeniedIP",
+            "procSpamfilterAdminInsertDeniedWord",
+            "procSpamfilterAdminDeleteDeniedWord",
+            "procSpamfilterAdminInsertConfig",
+        ],
+        "spamfilter_captcha_view" => [
+            "dispSpamfilterAdminConfigCaptcha",
+        ],
+        "spamfilter_captcha_manage" => [
+            "procSpamfilterAdminInsertConfigCaptcha",
+        ],
         "installed_module_view" => [
             "dispModuleAdminContent",
             "dispModuleAdminCategory",
