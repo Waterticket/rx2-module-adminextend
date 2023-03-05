@@ -30,6 +30,18 @@ class Permission {
             "procPointAdminApplyPoint",
             "procPointAdminReset",
         ],
+        "document_list_view" => [
+            "dispDocumentAdminList",
+            "procDocumentGetList",
+        ],
+        "document_declared_list_view" => [
+            "dispDocumentAdminDeclared",
+        ],
+        "document_manage" => [
+            "procDocumentManageCheckedDocument",
+            "getSiteAllList",
+            "getMenuAdminSiteMap",
+        ],
         "installed_module" => [
             "dispModuleAdminContent",
             "dispModuleAdminCategory",
