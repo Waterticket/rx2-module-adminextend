@@ -3,6 +3,16 @@
 $lang->cmd_adminextend = '관리자 확장팩';
 $lang->cmd_adminextend_general_config = '기본 설정';
 $lang->cmd_adminextend_subadmin_config = '부관리자 설정';
+$lang->cmd_adminextend_admin_log = '관리자 로그';
+$lang->log_idx = '로그 번호';
+$lang->act = 'Act';
+$lang->member = '회원';
+$lang->is_authorized = '허용 상태';
+$lang->is_authorized_U = '알 수 없음';
+$lang->is_authorized_Y = '허용';
+$lang->is_authorized_N = '거부';
+$lang->is_authorized_S = '허용(최고관리자)';
+
 $lang->login_ip_range = '로그인 IP 대역';
 $lang->about_login_ip_range = '그룹별로 로그인을 허용할 IP 대역을 설정할 수 있습니다. 예) 10.0.0.0/8, 192.168.0.12<br>한 줄에 하나의 아이피, 대역만 입력해주세요';
 $lang->msg_not_allowed_ip = '접근이 허용된 아이피가 아닙니다. 관리자에게 문의하세요.';

@@ -5,9 +5,11 @@
 	<actions>
 		<action name="dispAdminextendAdminConfig" class="Controllers\Common" menu_name="adminextend" admin_index="true" />
 		<action name="procAdminextendAdminInsertConfig" class="Controllers\Common" />
-		
+
 		<action name="dispAdminextendAdminSubadminConfig" class="Controllers\Subadmin" />
 		<action name="procAdminextendAdminInsertSubadminConfig" class="Controllers\Subadmin" />
+
+		<action name="dispAdminextendAdminLogIndex" class="Controllers\AdminLog" />
 	</actions>
 	<menus>
 		<menu name="adminextend" type="all">
