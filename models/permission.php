@@ -33,6 +33,7 @@ class Permission {
         ],
         "document_list_view" => [
             "dispDocumentAdminList",
+            "dispDocumentAdminConfig",
             "procDocumentGetList",
         ],
         "document_declared_list_view" => [
