@@ -6,6 +6,12 @@
     $oMemberModel = getModel('member');
 }
 
+<style>
+.is_authorized_Y, .is_authorized_S { color: green; }
+.is_authorized_N { color: red; }
+.is_authorized_U { color: gray; }
+</style>
+
 <div cond="$XE_VALIDATOR_MESSAGE" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
     <p>{$XE_VALIDATOR_MESSAGE}</p>
 </div>
@@ -31,13 +37,13 @@
             {@
                 $member_data = $oMemberModel->getMemberInfoByMemberSrl($val->member_srl);
             }
-            <td class="nowr">{$no}</td>
+            <td class="nowr">{$val->log_idx}</td>
             <td class="nowr">{$val->module}</td>
             <td class="nowr">{$val->act}</td>
             <td class="nowr"><a href="#popup_menu_area" class="member_{$val->member_srl}">{$member_data->nick_name}</a> ({$val->member_srl})</td>
             <td class="nowr">{$val->ipaddress}</td>
             <td class="nowr">{(($val->regdate > 0) ? date("Y-m-d H:i:s", strtotime($val->regdate)) : "-")}</td>
-            <td class="nowr">{lang('adminextend.is_authorized_'.$val->is_authorized)}</td>
+            <td class="nowr is_authorized_{$val->is_authorized}">{lang('adminextend.is_authorized_'.$val->is_authorized)}</td>
             <td class="nowr"><a href="{getUrl('act','dispAdminextendAdminViewLog','log_idx',$val->log_idx)}" title="{$lang->cmd_view}">{$lang->cmd_view}</a></td>
         </tr>
         <tr cond="!$log_list">
