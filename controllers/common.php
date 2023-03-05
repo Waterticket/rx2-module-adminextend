@@ -66,9 +66,11 @@ class Common extends Base
 		}
 
 		$config->module_enabled = ($vars->module_enabled == 'Y') ? 'Y' : 'N';
-		$config->admin_log_enabled = ($vars->admin_log_enabled == 'Y') ? 'Y' : 'N';
 		$config->super_admin_member_srl = intval($vars->super_admin_member_srl) ?: 4;
-		
+
+		$config->admin_log_enabled = ($vars->admin_log_enabled == 'Y') ? 'Y' : 'N';
+		$config->report_super_admin_when_unauthorized_act = ($vars->report_super_admin_when_unauthorized_act == 'Y') ? 'Y' : 'N';
+
 		$oMemberModel = MemberModel::getInstance();
 		$group_list = $oMemberModel->getGroups();
 		$login_ip_range_group = array();

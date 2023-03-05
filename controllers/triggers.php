@@ -4,6 +4,7 @@ namespace Rhymix\Modules\Adminextend\Controllers;
 
 use Rhymix\Modules\Adminextend\Models\Log;
 
+use ncenterliteController;
 use BaseObject;
 use Context;
 use MemberModel;
@@ -179,8 +180,14 @@ class Triggers extends Base
 		$args->ipaddress = \RX_CLIENT_IP;
 		$args->regdate = date('YmdHis');
 		$args->is_authorized = $is_authorized;
+		$id = Log::insertLog($args);
 
-		return Log::insertLog($args);
+		if ($is_authorized === 'N')
+		{
+			$this->reportToSuperAdmin($id);
+		}
+
+		return $id;
 	}
 
 	public function updateLogAuthroizedStatus(int $log_srl, string $is_authorized): void
@@ -192,5 +199,24 @@ class Triggers extends Base
 		$args->is_authorized = $is_authorized;
 
 		Log::updateLog($args);
+
+		if ($is_authorized === 'N')
+		{
+			$this->reportToSuperAdmin($log_srl);
+		}
+	}
+
+	public function reportToSuperAdmin(int $log_srl): void
+	{
+		$config = $this->getConfig();
+		if ($config->report_super_admin_when_unauthorized_act !== 'Y') return;
+
+		if ($config->last_reported_time > time() - 600)
+		{
+			return;
+		}
+
+		$oNcenterliteController = ncenterliteController::getInstance();
+		$oNcenterliteController->sendNotification($config->super_admin_member_srl, $config->super_admin_member_srl, lang('adminextend.notification_unauthorized'), getNotEncodedUrl('','module','admin','act','dispAdminextendAdminLogIndex'));
 	}
 }

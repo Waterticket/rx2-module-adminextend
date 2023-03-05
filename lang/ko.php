@@ -24,6 +24,9 @@ $lang->about_super_admin_member_srl = '최고 관리자의 srl을 입력해주�
 
 $lang->admin_log_enabled = '관리자 로그 기록';
 $lang->about_admin_log_enabled = '관리자 로그 기록을 활성화하면 관리자가 수행한 모든 작업을 기록합니다. 다만 비활성화 하더라도 관리자 확장팩 관련 설정은 기록됩니다.';
+$lang->report_super_admin_when_unauthorized_act = '권한 없는 작업 발생시 최고 관리자에게 알림';
+$lang->about_report_super_admin_when_unauthorized_act = '다른 관리자들이 권한 없는 작업에 접근할 경우 최고 관리자에게 알림을 보냅니다. (알림은 최소 10분 간격으로 발송됩니다.)';
+$lang->notification_unauthorized = '허용되지 않은 작업 시도 알림';
 
 $lang->permission = '권한';
 $lang->about_permission = '권한을 설정하면 해당 권한을 가진 관리자만 해당 메뉴를 볼 수 있습니다.';

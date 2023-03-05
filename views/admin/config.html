@@ -38,6 +38,14 @@
 				<p class="x_help-block">{$lang->about_admin_log_enabled}</p>
 			</div>
 		</div>
+
+		<div class="x_control-group">
+			<label class="x_control-label">{$lang->report_super_admin_when_unauthorized_act}</label>
+			<div class="x_controls">
+				<label><input type="checkbox" name="report_super_admin_when_unauthorized_act" value="Y" checked="checked"|cond="$config->report_super_admin_when_unauthorized_act === 'Y'">&nbsp;{$lang->report_super_admin_when_unauthorized_act}</label>
+				<p class="x_help-block">{$lang->about_report_super_admin_when_unauthorized_act}</p>
+			</div>
+		</div>
 	</section>
 	
 	<section class="section">
