@@ -64,7 +64,7 @@ class Permission {
         "trash_delete" => [
             "procTrashAdminEmptyTrash",
         ],
-        "installed_module" => [
+        "installed_module_view" => [
             "dispModuleAdminContent",
             "dispModuleAdminCategory",
         ],
