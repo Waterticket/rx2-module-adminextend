@@ -29,6 +29,30 @@ class Permission {
             "procPointAdminReCal",
             "procPointAdminApplyPoint",
             "procPointAdminReset",
+        ],
+        "installed_module" => [
+            "dispModuleAdminContent",
+            "dispModuleAdminCategory",
+        ],
+        "installed_addon" => [
+            "dispAddonAdminIndex",
+            "procAddonAdminSaveActivate",
+        ],
+        "installed_widget" => [
+            "dispWidgetAdminDownloadedList",
+            "dispWidgetAdminGenerateCode",
+            "procWidgetGetColorsetList",
+            "getSiteAllList",
+            "getMenuAdminSiteMap",
+            "procWidgetGenerateCode",
+        ],
+        "multi_lang_manage" => [
+            "dispModuleAdminLangcode",
+        ],
+        "rss_manage" => [
+            "dispRssAdminIndex",
+            "procRssAdminInsertConfig",
+            "procRssAdminInsertModuleConfig",
         ]
     ];
 
