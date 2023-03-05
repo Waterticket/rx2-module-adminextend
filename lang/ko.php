@@ -12,6 +12,9 @@ $lang->about_module_enabled = '모듈을 활성화하면 관리자 확장팩의 
 $lang->super_admin_member_srl = '최고 관리자 srl';
 $lang->about_super_admin_member_srl = '최고 관리자의 srl을 입력해주세요. 최고 관리자는 모든 권한을 가집니다.<br>또한 모듈 활성화 후에는 최고관리자만 이 모듈의 설정을 조회/변경할 수 있습니다.';
 
+$lang->admin_log_enabled = '관리자 로그 기록';
+$lang->about_admin_log_enabled = '관리자 로그 기록을 활성화하면 관리자가 수행한 모든 작업을 기록합니다.';
+
 $lang->permission = '권한';
 $lang->about_permission = '권한을 설정하면 해당 권한을 가진 관리자만 해당 메뉴를 볼 수 있습니다.';
 
