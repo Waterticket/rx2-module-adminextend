@@ -44,6 +44,26 @@ class Permission {
             "getSiteAllList",
             "getMenuAdminSiteMap",
         ],
+        "comment_list_view" => [
+            "dispCommentAdminList",
+            "procCommentGetList",
+        ],
+        "comment_declared_list_view" => [
+            "dispCommentAdminDeclared",
+        ],
+        "comment_manage" => [
+            "procCommentAdminDeleteChecked",
+        ],
+        "trash_list_view" => [
+            "dispTrashAdminList",
+            "procTrashAdminGetList",
+        ],
+        "trash_restore" => [
+            "procTrashAdminRestore",
+        ],
+        "trash_delete" => [
+            "procTrashAdminEmptyTrash",
+        ],
         "installed_module" => [
             "dispModuleAdminContent",
             "dispModuleAdminCategory",
