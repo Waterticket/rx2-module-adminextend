@@ -2,6 +2,8 @@
 
 namespace Rhymix\Modules\Adminextend\Controllers;
 
+use Rhymix\Modules\Adminextend\Models\Log;
+
 use BaseObject;
 use Context;
 use MemberModel;
@@ -85,30 +87,42 @@ class Triggers extends Base
 	}
 
 	public static $allowed_acts = [];
+	public static $log_enabled = false;
 
 	public function beforeModuleProc($obj)
 	{
 		$config = $this->getConfig();
 		if ($config->module_enabled !== 'Y') return;
+		self::$log_enabled = $config->admin_log_enabled === 'Y';
 
 		if ($obj->mid === 'admin' || $obj->module === 'admin' || str_contains(strtolower($obj->act), 'admin'))
 		{
+			$log_srl = $this->insertLog('U');
 			self::$allowed_acts = \Rhymix\Modules\Adminextend\Models\Permission::getAllowedActs(array_keys($this->user->group_list));
 			
-			if ($this->user->member_srl === $config->super_admin_member_srl) return;
+			if ($this->user->member_srl === $config->super_admin_member_srl)
+			{
+				$this->updateLogAuthroizedStatus($log_srl, 'S');
+				return;
+			}
+
 			$gnbUrlList = Context::get('gnbUrlList');
 			$gnbUrlList = $this->updateUrlList($gnbUrlList);
 			Context::set('gnbUrlList', $gnbUrlList);
 
 			if (!in_array($obj->act, self::$allowed_acts))
 			{
+				$this->updateLogAuthroizedStatus($log_srl, 'N');
 				return new BaseObject(-1, 'msg_not_permitted_act');
 			}
 
 			if (!Login::checkMemberAllowedIpRangeByGroup($this->user->member_srl))
 			{
+				$this->updateLogAuthroizedStatus($log_srl, 'N');
 				return new BaseObject(-1, 'msg_not_allowed_ip');
 			}
+
+			$this->updateLogAuthroizedStatus($log_srl, 'Y');
 		}
 	}
 
@@ -146,5 +160,32 @@ class Triggers extends Base
 		}
 
 		return $urlList;
+	}
+
+	public function insertLog(string $is_authorized = 'N'): int
+	{
+		if (!self::$log_enabled) return -1;
+
+		$args = new stdClass;
+		$args->module = Context::get('module') ?: 'admin';
+		$args->act = Context::get('act') ?: 'unknown';
+		$args->request_vars = print_r(Context::getRequestVars(), TRUE);
+		$args->member_srl = $this->user->member_srl;
+		$args->ipaddress = \RX_CLIENT_IP;
+		$args->regdate = date('YmdHis');
+		$args->is_authorized = $is_authorized;
+
+		return Log::insertLog($args);
+	}
+
+	public function updateLogAuthroizedStatus(int $log_srl, string $is_authorized): void
+	{
+		if (!self::$log_enabled) return;
+		
+		$args = new stdClass;
+		$args->log_idx = $log_srl;
+		$args->is_authorized = $is_authorized;
+
+		Log::updateLog($args);
 	}
 }

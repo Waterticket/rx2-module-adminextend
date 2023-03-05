@@ -28,6 +28,17 @@
 			</div>
 		</div>
 	</section>
+
+	<section class="section">
+		<h1>로그 설정</h1>
+		<div class="x_control-group">
+			<label class="x_control-label">{$lang->admin_log_enabled}</label>
+			<div class="x_controls">
+				<label><input type="checkbox" name="admin_log_enabled" value="Y" checked="checked"|cond="$config->admin_log_enabled === 'Y'">&nbsp;{$lang->admin_log_enabled}</label>
+				<p class="x_help-block">{$lang->about_admin_log_enabled}</p>
+			</div>
+		</div>
+	</section>
 	
 	<section class="section">
 		<h1>로그인</h1>

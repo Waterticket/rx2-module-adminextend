@@ -1,0 +1,11 @@
+<query id="getLogs" action="select">
+    <tables>
+        <table name="adminextend_admin_log" />
+    </tables>
+    <columns>
+        <column name="*" />
+    </columns>
+    <conditions>
+            <condition operation="in" column="log_idx" var="log_idx" filter="number" />
+    </conditions>
+</query>
