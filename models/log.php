@@ -112,28 +112,4 @@ class Log {
 
         return new BaseObject();
     }
-
-    /**
-     * adminextend_admin_log 테이블에서 Log를 삭제한다.
-     * 
-     * @param int $log_idx
-     */
-    public static function deleteLog(int $log_idx): object
-    {
-        $args = new stdClass();
-        $args->log_idx = $log_idx;
-
-        $oDB = DB::getInstance();
-        $oDB->begin();
-
-        $output = executeQuery('adminextend.deleteLog', $args);
-        if(!$output->toBool())
-        {
-            $oDB->rollback();
-            throw new DBError(sprintf("DB Error: %s in %s line %s", $output->getMessage(), __FILE__, __LINE__));
-        }
-        $oDB->commit();
-
-        return new BaseObject();
-    }
 }
