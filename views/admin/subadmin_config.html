@@ -19,7 +19,7 @@
 				<table class="x_table">
 					<!--@foreach($group_list as $group_srl => $group_info)-->
 					<tr>
-						<td style="max-width: 20px;"><span>{$group_info->title}</span></td>
+						<td style="max-width: 20px;"><span>{$group_info->title} (#{$group_info->group_srl})</span></td>
 						<td>
                             <!--@foreach($permission_list as $permission)-->
                             <label><input type="checkbox" name="permission[{$group_srl}][{$permission}]" value="Y" checked="checked"|cond="$config->permission[$group_srl][$permission] == 'Y'" />&nbsp;{$lang->$permission}</label>
