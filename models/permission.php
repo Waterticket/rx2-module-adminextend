@@ -6,6 +6,7 @@ class Permission {
     private const PERMISSION_LIST = [
         "__dashboard__" => [
             "__dashboard__",
+            "dispAdminIndex",
         ],
         "member_list" => [
             "dispMemberAdminList",
