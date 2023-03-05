@@ -2,8 +2,8 @@
 <module version="0.2">
 	<title xml:lang="ko">관리자 확장팩</title>
 	<description xml:lang="ko">관리자 기능을 확장시켜줍니다.</description>
-	<version>1.0.0</version>
-	<date>2022-09-15</date>
+	<version>1.1.0</version>
+	<date>2023-03-06</date>
 	<category>service</category>
 	<author email_address="matthew218@naver.com" link="https://me.hoto.dev">
 		<name xml:lang="ko">Waterticket</name>
