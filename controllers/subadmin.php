@@ -57,7 +57,7 @@ class Subadmin extends Base
 
 		if ($config->module_enabled == 'Y' && $this->user->member_srl != $config->super_admin_member_srl)
 		{
-			throw new Exception('msg_not_permitted');
+			throw new Exception('msg_not_permitted_only_super_admin');
 		}
 
 		$config->permission = $vars->permission;

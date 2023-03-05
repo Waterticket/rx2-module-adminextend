@@ -12,6 +12,7 @@ $lang->is_authorized_U = '알 수 없음';
 $lang->is_authorized_Y = '허용';
 $lang->is_authorized_N = '거부';
 $lang->is_authorized_S = '허용(최고관리자)';
+$lang->msg_not_permitted_only_super_admin = '최고 관리자만 접근할 수 있습니다.';
 
 $lang->login_ip_range = '로그인 IP 대역';
 $lang->about_login_ip_range = '그룹별로 로그인을 허용할 IP 대역을 설정할 수 있습니다. 예) 10.0.0.0/8, 192.168.0.12<br>한 줄에 하나의 아이피, 대역만 입력해주세요';
@@ -31,6 +32,7 @@ $lang->notification_unauthorized = '허용되지 않은 작업 시도 알림';
 $lang->permission = '권한';
 $lang->about_permission = '권한을 설정하면 해당 권한을 가진 관리자만 해당 메뉴를 볼 수 있습니다.';
 
+$lang->permission___all__ = '전체 허용';
 $lang->permission___dashboard__ = '대시보드';
 $lang->permission_member_list = '회원 목록';
 $lang->permission_member_view = '회원 조회';

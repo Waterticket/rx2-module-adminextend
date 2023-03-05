@@ -4,6 +4,9 @@ namespace Rhymix\Modules\Adminextend\Models;
 
 class Permission {
     private const PERMISSION_LIST = [
+        "__all__" => [
+            "__all__",
+        ],
         "__dashboard__" => [
             "__dashboard__",
             "dispAdminIndex",
@@ -68,6 +71,7 @@ class Permission {
             "dispSpamfilterAdminDeniedIPList",
             "dispSpamfilterAdminDeniedWordList",
             "dispSpamfilterAdminConfigBlock",
+            "getModuleAdminMultilingualHtml",
         ],
         "spamfilter_manage" => [
             "procSpamfilterAdminInsertDeniedIP",
