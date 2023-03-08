@@ -104,6 +104,10 @@ class Permission {
         ],
         "multi_lang_manage" => [
             "dispModuleAdminLangcode",
+            "getModuleAdminLangListHtml",
+            "procModuleAdminInsertLang",
+            "getModuleAdminLangCode",
+            "procModuleAdminDeleteLang",
         ],
         "rss_manage" => [
             "dispRssAdminIndex",
