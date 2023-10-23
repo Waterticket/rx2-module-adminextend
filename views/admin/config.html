@@ -57,7 +57,7 @@
 					<!--@foreach($group_list as $group_srl => $group_info)-->
 					<tr>
 						<td><span>{$group_info->title} (#{$group_info->group_srl})</span></td>
-						<td><textarea name="login_ip_range_by_group[{$group_srl}]" placeholder="0.0.0.0/0">{implode(PHP_EOL, $config->login_ip_range_by_group[$group_srl] ?? [])}</textarea></td>
+						<td><textarea name="login_ip_range_by_group[{$group_srl}]" placeholder="{$_SERVER['REMOTE_ADDR']}/32 &#13;&#10;0.0.0.0/0">{implode(PHP_EOL, $config->login_ip_range_by_group[$group_srl] ?? [])}</textarea></td>
 					</tr>
 					<!--@endforeach-->
 				</table>
