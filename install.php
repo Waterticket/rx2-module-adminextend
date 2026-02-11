@@ -17,6 +17,7 @@ class Install extends Base
 	 */
 	protected static $_insert_triggers = array(
 		array('member.doLogin', 'before', 'Controllers\Triggers', 'beforeDoLogin'),
+		array('member.doAutoLogin', 'before', 'Controllers\Triggers', 'beforeDoLogin'),
 		array('moduleObject.proc', 'before', 'Controllers\Triggers', 'beforeModuleProc'),
 		array('moduleObject.proc', 'after', 'Controllers\Triggers', 'afterModuleProc'),
 	);
@@ -26,9 +27,9 @@ class Install extends Base
 	 * 사용하지 않는 트리거는 삭제해 주는 것이 성능에 도움이 된다.
 	 */
 	protected static $_delete_triggers = array(
-		// array('comment.insertComment', 'after', 'Controllers\Triggers', 'afterInsertComment'),
-		// array('comment.updateComment', 'after', 'Controllers\Triggers', 'afterUpdateComment'),
-		// array('comment.deleteComment', 'after', 'Controllers\Triggers', 'afterDeleteComment'),
+		// array('member.doLogin', 'before', 'Controllers\Triggers', 'beforeDoLogin'),
+		// array('moduleObject.proc', 'before', 'Controllers\Triggers', 'beforeModuleProc'),
+		// array('moduleObject.proc', 'after', 'Controllers\Triggers', 'afterModuleProc'),
 	);
 	
 	/**
