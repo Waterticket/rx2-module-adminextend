@@ -32,7 +32,7 @@ class Base extends \ModuleObject
 
 			// 기본값 설정
 			if (!isset(self::$_config_cache->module_enabled)) self::$_config_cache->module_enabled = 'N';
-			if (!isset(self::$_config_cache->super_admin_member_srl)) self::$_config_cache->super_admin_member_srl = 4;
+			if (!isset(self::$_config_cache->super_admin_member_srl)) self::$_config_cache->super_admin_member_srl = -1;
 			if (!isset(self::$_config_cache->admin_log_enabled)) self::$_config_cache->admin_log_enabled = 'N';
 			if (!isset(self::$_config_cache->report_super_admin_when_unauthorized_act)) self::$_config_cache->report_super_admin_when_unauthorized_act = 'N';
 			if (!isset(self::$_config_cache->last_reported_time)) self::$_config_cache->last_reported_time = 0;

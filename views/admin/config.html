@@ -23,7 +23,7 @@
 		<div class="x_control-group">
 			<label class="x_control-label">{$lang->super_admin_member_srl}</label>
 			<div class="x_controls">
-				<input type="number" name="super_admin_member_srl" value="{$config->super_admin_member_srl}">&nbsp;(현재 계정 srl: {$this->user->member_srl})
+				<input type="number" name="super_admin_member_srl" value="{$config->super_admin_member_srl !== -1 ? $config->super_admin_member_srl : $this->user->member_srl}">&nbsp;(현재 계정 srl: {$this->user->member_srl})
 				<p class="x_help-block">{$lang->about_super_admin_member_srl}</p>
 			</div>
 		</div>
