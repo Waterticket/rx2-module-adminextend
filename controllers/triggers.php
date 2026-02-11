@@ -132,8 +132,9 @@ class Triggers extends Base
 				return;
 			}
 
-			if ($config->access_level === 'login_and_admin_act' && !Login::checkMemberAllowedIpRangeByGroup($this->user->member_srl))
+			if (in_array($config->access_level, ['login_and_admin_act', 'all_act']) && !Login::checkMemberAllowedIpRangeByGroup($this->user->member_srl))
 			{
+				Context::set('gnbUrlList', []);
 				$this->updateLogAuthroizedStatus($log_srl, 'N');
 				return new BaseObject(-1, 'msg_not_allowed_ip');
 			}
@@ -155,6 +156,18 @@ class Triggers extends Base
 			}
 
 			$this->updateLogAuthroizedStatus($log_srl, 'Y');
+		}
+		else
+		{
+			if ($config->access_level !== 'all_act') return;
+			if (!$this->user->isMember()) return;
+			if ($this->user->member_srl === $config->super_admin_member_srl) return;
+			if (in_array($obj->act, ['dispMemberLogout'])) return;
+
+			if (!Login::checkMemberAllowedIpRangeByGroup($this->user->member_srl))
+			{
+				return new BaseObject(-1, 'msg_not_allowed_ip');
+			}
 		}
 	}
 
