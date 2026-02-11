@@ -25,7 +25,7 @@ class Triggers extends Base
 	public function beforeDoLogin($obj)
 	{
 		$config = $this->getConfig();
-		if ($config->module_enabled !== 'Y') return;
+		if ($config->module_enabled !== 'Y' || $config->access_level === 'none') return;
 		
 		$user_id = $obj->user_id;
 		$member_config = MemberModel::getMemberConfig();
@@ -85,6 +85,15 @@ class Triggers extends Base
 		{
 			return new BaseObject(-1, 'msg_not_allowed_ip');
 		}
+	}
+
+	public function beforeDoAutoLogin($obj)
+	{
+		$config = $this->getConfig();
+		if ($config->module_enabled !== 'Y' || $config->access_level === 'none') return;
+		if ($config->apply_access_control_on_auto_login !== 'Y') return;
+
+		return $this->beforeDoLogin($obj);
 	}
 
 	public static $allowed_acts = [];

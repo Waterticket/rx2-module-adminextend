@@ -14,8 +14,8 @@ $lang->is_authorized_N = '거부';
 $lang->is_authorized_S = '허용(최고관리자)';
 $lang->msg_not_permitted_only_super_admin = '최고 관리자만 접근할 수 있습니다.';
 
-$lang->login_ip_range = '로그인 IP 대역';
-$lang->about_login_ip_range = '그룹별로 로그인을 허용할 IP 대역을 설정할 수 있습니다. 예) 10.0.0.0/8, 192.168.0.12<br>한 줄에 하나의 아이피, 대역만 입력해주세요';
+$lang->login_ip_range = 'IP 대역';
+$lang->about_login_ip_range = '그룹별로 작업을 허용할 IP 대역을 설정할 수 있습니다. 예) 10.0.0.0/8, 192.168.0.12<br>한 줄에 하나의 아이피, 대역만 입력해주세요';
 $lang->msg_not_allowed_ip = '접근이 허용된 아이피가 아닙니다. 관리자에게 문의하세요.';
 $lang->msg_current_ip_will_be_denied = '주어진 설정에 따르면 현재 로그인하신 IP 주소도 차단됩니다. 다시 확인해 주십시오.';
 $lang->module_enabled = '모듈 활성화';
