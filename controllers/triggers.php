@@ -4,6 +4,7 @@ namespace Rhymix\Modules\Adminextend\Controllers;
 
 use Rhymix\Modules\Adminextend\Models\Log;
 
+use Rhymix\Framework\Cookie;
 use ncenterliteController;
 use BaseObject;
 use Context;
@@ -87,13 +88,17 @@ class Triggers extends Base
 		}
 	}
 
-	public function beforeDoAutoLogin($obj)
+	public function beforeDoAutoLogin($member_info)
 	{
 		$config = $this->getConfig();
 		if ($config->module_enabled !== 'Y' || $config->access_level === 'none') return;
 		if ($config->apply_access_control_on_auto_login !== 'Y') return;
 
-		return $this->beforeDoLogin($obj);
+		if(!Login::checkMemberAllowedIpRangeByGroup($member_info->member_srl))
+		{
+			Cookie::set('auto_login_failed_due_ip', 'Y', ['expires' => 3600]);
+			return new BaseObject(-1, 'msg_not_allowed_ip');
+		}
 	}
 
 	public static $allowed_acts = [];
@@ -103,6 +108,12 @@ class Triggers extends Base
 	{
 		$config = $this->getConfig();
 		if ($config->module_enabled !== 'Y') return;
+
+		if (Cookie::get('auto_login_failed_due_ip') === 'Y' && str_contains(strtolower($obj->act), 'disp'))
+		{
+			Cookie::remove('auto_login_failed_due_ip');
+			return new BaseObject(-1, 'msg_auto_loggout_due_to_ip_restriction');
+		}
 
 		self::$log_enabled = $config->admin_log_enabled === 'Y';
 		if (str_contains(strtolower($obj->act), 'adminextend'))
@@ -121,6 +132,12 @@ class Triggers extends Base
 				return;
 			}
 
+			if ($config->access_level === 'login_and_admin_act' && !Login::checkMemberAllowedIpRangeByGroup($this->user->member_srl))
+			{
+				$this->updateLogAuthroizedStatus($log_srl, 'N');
+				return new BaseObject(-1, 'msg_not_allowed_ip');
+			}
+
 			if (in_array('__all__', self::$allowed_acts))
 			{
 				$this->updateLogAuthroizedStatus($log_srl, 'Y');
@@ -135,12 +152,6 @@ class Triggers extends Base
 			{
 				$this->updateLogAuthroizedStatus($log_srl, 'N');
 				return new BaseObject(-1, 'msg_not_permitted_act');
-			}
-
-			if (!Login::checkMemberAllowedIpRangeByGroup($this->user->member_srl))
-			{
-				$this->updateLogAuthroizedStatus($log_srl, 'N');
-				return new BaseObject(-1, 'msg_not_allowed_ip');
 			}
 
 			$this->updateLogAuthroizedStatus($log_srl, 'Y');
