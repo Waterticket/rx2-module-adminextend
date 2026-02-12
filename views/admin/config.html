@@ -72,6 +72,14 @@
 		</div>
 
 		<div class="x_control-group">
+			<label class="x_control-label">최고 관리자 반영 여부</label>
+			<div class="x_controls">
+				<label><input type="checkbox" name="apply_access_control_on_super_admin" value="Y" checked="checked"|cond="$config->apply_access_control_on_super_admin === 'Y'">&nbsp;최고 관리자에게도 접근제어 적용</label>
+				<p class="x_help-block">최고 관리자에게도 접근제어를 적용할지 여부를 선택해주세요.</p>
+			</div>
+		</div>
+
+		<div class="x_control-group">
 			<label class="x_control-label">{$lang->login_ip_range}</label>
 			<div class="x_controls">
 				<table class="x_table">

@@ -82,6 +82,7 @@ class Triggers extends Base
 			return new BaseObject(-1, 'invalid_user_id');
 		}
 
+		if ($member_info->member_srl === $config->super_admin_member_srl && $config->apply_access_control_on_super_admin !== 'Y') return;
 		if(!Login::checkMemberAllowedIpRangeByGroup($member_info->member_srl))
 		{
 			return new BaseObject(-1, 'msg_not_allowed_ip');
@@ -93,6 +94,7 @@ class Triggers extends Base
 		$config = $this->getConfig();
 		if ($config->module_enabled !== 'Y' || $config->access_level === 'none') return;
 		if ($config->apply_access_control_on_auto_login !== 'Y') return;
+		if ($member_info->member_srl === $config->super_admin_member_srl && $config->apply_access_control_on_super_admin !== 'Y') return;
 
 		if(!Login::checkMemberAllowedIpRangeByGroup($member_info->member_srl))
 		{
@@ -125,18 +127,24 @@ class Triggers extends Base
 		{
 			$log_srl = $this->insertLog('U', $obj->act);
 			self::$allowed_acts = \Rhymix\Modules\Adminextend\Models\Permission::getAllowedActs(array_keys($this->user->group_list));
-			
+
+			if (in_array($config->access_level, ['login_and_admin_act', 'all_act']) && !Login::checkMemberAllowedIpRangeByGroup($this->user->member_srl))
+			{
+			    if ($this->user->member_srl === $config->super_admin_member_srl && $config->apply_access_control_on_super_admin !== 'Y')
+			    {
+			        $this->updateLogAuthroizedStatus($log_srl, 'S');
+			        return;
+			    }
+
+				Context::set('gnbUrlList', []);
+				$this->updateLogAuthroizedStatus($log_srl, 'N');
+				return new BaseObject(-1, 'msg_not_allowed_ip');
+			}
+
 			if ($this->user->member_srl === $config->super_admin_member_srl)
 			{
 				$this->updateLogAuthroizedStatus($log_srl, 'S');
 				return;
-			}
-
-			if (in_array($config->access_level, ['login_and_admin_act', 'all_act']) && !Login::checkMemberAllowedIpRangeByGroup($this->user->member_srl))
-			{
-				Context::set('gnbUrlList', []);
-				$this->updateLogAuthroizedStatus($log_srl, 'N');
-				return new BaseObject(-1, 'msg_not_allowed_ip');
 			}
 
 			if (in_array('__all__', self::$allowed_acts))
@@ -161,7 +169,7 @@ class Triggers extends Base
 		{
 			if ($config->access_level !== 'all_act') return;
 			if (!$this->user->isMember()) return;
-			if ($this->user->member_srl === $config->super_admin_member_srl) return;
+			if ($this->user->member_srl === $config->super_admin_member_srl && $config->apply_access_control_on_super_admin !== 'Y') return;
 			if (in_array($obj->act, ['dispMemberLogout'])) return;
 
 			if (!Login::checkMemberAllowedIpRangeByGroup($this->user->member_srl))

@@ -72,6 +72,7 @@ class Common extends Base
 		$config->report_super_admin_when_unauthorized_act = ($vars->report_super_admin_when_unauthorized_act === 'Y') ? 'Y' : 'N';
 		$config->access_level = $vars->access_level;
 		$config->apply_access_control_on_auto_login = ($vars->apply_access_control_on_auto_login === 'Y') ? 'Y' : 'N';
+		$config->apply_access_control_on_super_admin = ($vars->apply_access_control_on_super_admin === 'Y') ? 'Y' : 'N';
 
 		$oMemberModel = MemberModel::getInstance();
 		$group_list = $oMemberModel->getGroups();

@@ -38,6 +38,7 @@ class Base extends \ModuleObject
 			if (!isset(self::$_config_cache->last_reported_time)) self::$_config_cache->last_reported_time = 0;
 			if (!isset(self::$_config_cache->access_level)) self::$_config_cache->access_level = 'none';
 			if (!isset(self::$_config_cache->apply_access_control_on_auto_login)) self::$_config_cache->apply_access_control_on_auto_login = 'Y';
+			if (!isset(self::$_config_cache->apply_access_control_on_super_admin)) self::$_config_cache->apply_access_control_on_super_admin = 'N';
 			if (!isset(self::$_config_cache->login_ip_range_by_group)) self::$_config_cache->login_ip_range_by_group = [];
 			if (!isset(self::$_config_cache->permission)) self::$_config_cache->permission = [];
 			if (!isset(self::$_config_cache->custom_allowed_act)) self::$_config_cache->custom_allowed_act = [];
